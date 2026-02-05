@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>House Price Prediction</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        Area: <input type="number" name="area" required><br><br>
+        Bedrooms: <input type="number" name="bedrooms" required><br><br>
+        Bathrooms: <input type="number" name="bathrooms" required><br><br>
+        Age: <input type="number" name="age" required><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if price %}
+    <h3>Predicted Price: Rs {{ price }}</h3>
+    {% endif %}
+
+</body>
+
+</html>
