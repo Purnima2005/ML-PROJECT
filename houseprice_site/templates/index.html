@@ -1,24 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Prediction</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Background image with dark overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://i.ytimg.com/vi/5J4E9lZvHNs/maxresdefault.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .container {
+            background-color: rgba(173, 232, 237, 0.95);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            margin-bottom: 35px;
+            color: #333;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        input[type=number] {
+            width: 90%;
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: 1px solid #cccccc;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type=number]:focus {
+            border-color: #6C63FF;
+            box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(45deg, #07d93c, #27d111);
+            color: white;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #6C63FF;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #f0f0ff;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            input[type=number] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
 
 <body>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="number" name="area" placeholder="Area (sq ft)" required><br>
+            <input type="number" name="bedrooms" placeholder="Bedrooms" required><br>
+            <input type="number" name="bathrooms" placeholder="Bathrooms" required><br>
+            <input type="number" name="age" placeholder="Age (years)" required><br>
+            <button type="submit">Predict Price</button>
+        </form>
 
-    <h2>House Price Prediction</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        Area: <input type="number" name="area" required><br><br>
-        Bedrooms: <input type="number" name="bedrooms" required><br><br>
-        Bathrooms: <input type="number" name="bathrooms" required><br><br>
-        Age: <input type="number" name="age" required><br><br>
-
-        <button type="submit">Predict</button>
-    </form>
-
-    {% if price %}
-    <h3>Predicted Price: Rs {{ price }}</h3>
-    {% endif %}
-
+        {% if price %}
+        <div class="result">Predicted Price: Rs {{ price }}</div>
+        {% endif %}
+    </div>
 </body>
 
 </html>
